@@ -1,0 +1,12 @@
+.input-Field {
+    background-color: #ffffff !important;
+    border-radius: 20px;
+    /*padding: 20px !important;*/
+    margin: 10px !important;
+    width: 450px;
+;
+}
+
+#outlined-basic:hover {
+    opacity: 0.9!important;
+}
