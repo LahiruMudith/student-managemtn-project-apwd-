@@ -18,7 +18,6 @@ export default function AddStudent() {
     return (
         <Box sx={{ width: 300 }}>
             <h1>This is Add Student Page</h1>
-
         </Box>
     );
 }

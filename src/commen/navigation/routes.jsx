@@ -16,14 +16,14 @@ const routes = [
     {
         name: 'Update Student',
         path: '/updateStudent',
-        key: 'addStudent',
+        key: 'updateStudent',
         icon: <img src={updateStudentIcon} style={{width:'30px'}}/>,
         component: <UpdateStudent/>
     },
     {
         name: 'Delete Student',
         path: '/deleteStudent',
-        key: 'addStudent',
+        key: 'deleteStudent',
         icon: <img src={deleteStudentIcon} style={{width:'30px'}}/>,
         component: <DeleteStudent/>
     }

@@ -22,7 +22,7 @@ export default function Btn({name, onClick}) {
                    left:'45%'
                 },
                 [theme.breakpoints.between('sm', 'md')]: {
-                    left:'32%'
+                    left:'36%'
                 },
                 [theme.breakpoints.between('xs', 'sm')]: {
                     left:'4%',
