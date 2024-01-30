@@ -1,22 +1,18 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import axios from "axios";
+import updateStudentIcon from '../../assets/UpdateStudentIcon.png';
+import DeleteIcon from '@mui/icons-material/Delete';
 import instance from "../../services/AxiosOrder.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {HashLoader} from "react-spinners";
+import LogoutIcon from "@mui/icons-material/Logout.js";
+import Box from "@mui/material/Box";
+import TextArea from "../../common/Component/TextArea/TextArea.jsx";
+import PopUpMenu from "../../assets/component/PopUpMenu/PopUpMenu.jsx";
+
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -31,28 +27,69 @@ const ExpandMore = styled((props) => {
 
 export default function ViewStudentPage() {
     const [expanded, setExpanded] = React.useState(false);
+    const [loader, setLoader] = useState(true)
     const [data, setData] = useState([])
+    const arr = []
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    instance({
-        method: "get",
-        url: "/student/getAll",
-    }).then(function (response) {
-        // const arr = [...data]
-        // arr.push(response.data)
-        console.log(response.data)
-    });
+    useEffect(() => {
+        instance({
+            method: "get",
+            url: "/student/getAll",
+        }).then(function (response) {
+            console.log(response.data)
+            setData(response.data)
+            setLoader(false)
+        });
+    }, []);
+
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardContent>
-                <p>Name : Lahiru</p>
-                <p>Age : 17</p>
-                <p>Address : Panadura</p>
-                <p>Contact : 0761298256</p>
-            </CardContent>
-        </Card>
+        <>
+            {
+                loader ?
+                    <HashLoader
+                        style={{width:'300px'}}
+                        color="#FFA500"
+                        cssOverride={{}}
+                        size={100}
+                        loading
+                        speedMultiplier={2}
+                    />                    :
+                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                        {
+                            data.map((val, index) => (
+
+                                <Card key={index} sx={{width: 345, margin: '10px'}}>
+                                    <CardContent>
+                                        <p>Name : {val.student_name}</p>
+                                        <p>Age : {val.student_age}</p>
+                                        <p>Address : {val.student_address}</p>
+                                        <p>Contact : {val.student_contact}</p>
+
+                                    </CardContent>
+                                    <Box sx={{position:'relative', left:'250px', display:'flex'}}>
+                                        <PopUpMenu
+                                            name={val.student_name}
+                                            age={val.student_age}
+                                            address={val.student_address}
+                                            contact={val.student_contact}
+                                        />
+                                        <IconButton aria-label="Example"
+                                                    sx={{}}
+                                                    onClick={() => LogoutClick()}>
+                                            <DeleteIcon/>
+                                        </IconButton>
+                                    </Box>
+                                </Card>
+
+                            ))
+                        }
+                    </div>
+            }
+        </>
     );
 }

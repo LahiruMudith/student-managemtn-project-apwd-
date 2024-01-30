@@ -38,6 +38,7 @@ export default function LoginPage() {
                 const token = (response.data.token)
                 if (token) {
                     localStorage.setItem('loginKey', token)
+                    location.reload()
                 }
             })
             .catch(function (error) {

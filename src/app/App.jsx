@@ -17,9 +17,7 @@ export default function App() {
     useEffect(() => {
         if (loginToken) {
             setDashboard(true);
-
         }
-
     }, []);
 
 

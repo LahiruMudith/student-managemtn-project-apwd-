@@ -20,7 +20,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import {Routes, Route, Navigate} from "react-router-dom";
 import routes from "../../common/navigation/routes.jsx";
 import { Link } from 'react-router-dom';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import instance from "../../services/AxiosOrder.jsx";
 
 const drawerWidth = 210;
 
@@ -107,6 +108,17 @@ export default function Main() {
             <Route key={val.key} path={val.path} element={val.component} />
         )
 
+    const LogoutClick = () => {
+            instance({
+                method: "get",
+                url: "/logout",
+            }).then(function (response) {
+                console.log(response.data)
+                localStorage.removeItem('loginKey')
+                location.reload()
+            });
+    }
+
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -136,6 +148,7 @@ export default function Main() {
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
+
                 <Divider />
                 {
                     routes.map((val, index) => (
@@ -163,14 +176,19 @@ export default function Main() {
                         </Link>
                     ))
                 }
-
+                <IconButton aria-label="Example"
+                            sx={{position:'relative', top:'500px'}}
+                            onClick={() => LogoutClick()}
+                >
+                    <LogoutIcon />
+                </IconButton>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
                 <Routes>
                     {GetRoutes(routes)}
                     <Route path={'*'} element={ <Navigate to={'/viewStudent'}/>}/>
-                    {/*<Route path={'/updateStudent'} element={<UpdateStudentPage/>}/>*/}
+                    {/*<Route path={'/updateStudent'} element={<AddStudentPage/>}/>*/}
                 </Routes>
             </Box>
         </Box>
