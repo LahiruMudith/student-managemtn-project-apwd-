@@ -11,8 +11,8 @@ import {HashLoader} from "react-spinners";
 import LogoutIcon from "@mui/icons-material/Logout.js";
 import Box from "@mui/material/Box";
 import TextArea from "../../common/Component/TextArea/TextArea.jsx";
-import PopUpMenu from "../../assets/component/PopUpMenu/PopUpMenu.jsx";
-
+import PopUpMenu from "../../component/PopUpMenu/PopUpMenu.jsx";
+import './viewStudentPage.css.css'
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -47,6 +47,17 @@ export default function ViewStudentPage() {
     }, []);
 
 
+    const DeleteClick = (id) => {
+        instance.delete(`/student/delete/${id}`)
+            .then(response => {
+                console.log(`Deleted post with ID ${id}`);
+                location.reload();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     return (
         <>
             {
@@ -59,28 +70,27 @@ export default function ViewStudentPage() {
                         loading
                         speedMultiplier={2}
                     />                    :
-                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                    <div className={'MainBox'} style={{display: 'flex', flexWrap: 'wrap', minHeight:'100vh'}}>
                         {
                             data.map((val, index) => (
-
-                                <Card key={index} sx={{width: 345, margin: '10px'}}>
+                                <Card key={index} sx={{height:'250px', width: '315px', margin: '10px', backgroundColor:'#e5a41e', borderRadius:'15px'}}>
                                     <CardContent>
                                         <p>Name : {val.student_name}</p>
                                         <p>Age : {val.student_age}</p>
                                         <p>Address : {val.student_address}</p>
                                         <p>Contact : {val.student_contact}</p>
-
                                     </CardContent>
-                                    <Box sx={{position:'relative', left:'250px', display:'flex'}}>
+                                    <Box sx={{position:'relative', left:'220px', display:'flex'}}>
                                         <PopUpMenu
                                             name={val.student_name}
                                             age={val.student_age}
                                             address={val.student_address}
                                             contact={val.student_contact}
+                                            id={val.id}
                                         />
                                         <IconButton aria-label="Example"
                                                     sx={{}}
-                                                    onClick={() => LogoutClick()}>
+                                                    onClick={() => DeleteClick(val.id)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </Box>

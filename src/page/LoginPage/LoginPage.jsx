@@ -9,16 +9,7 @@ import {TextField} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
 import instance from "../../services/AxiosOrder.jsx";
-
-const bull = (
-
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+import './LoginPage.css'
 
 export default function LoginPage() {
 
@@ -48,30 +39,32 @@ export default function LoginPage() {
 
 
     return (
-        <Card sx={{ width:'600px', mx: 'auto', position:'relative', top:'30vh' }}>
-            <CardContent>
-                <TextField
-                    id="email"
-                    label="Email"
-                    variant="outlined"
-                    sx={{width:'570px', marginBottom:'10px'}}
-                    onChange={(val) => setEmail(val.target.value) }
-                />
-                <TextField
-                    id="password"
-                    label="Password"
-                    type={'password'}
-                    variant="outlined"
-                    sx={{width:'570px', marginBottom:'10px'}}
-                    onChange={(val) => setPassword(val.target.value) }
-                />
-                <Button sx={{position:'relative', left:'23vw', width:'100px'}}
-                        variant="contained"
-                        onClick={LoginBtn}
-                >
-                    Login
-                </Button>
-            </CardContent>
-        </Card>
+        <Box className={'MainBox'} >
+            <Card sx={{ width:'600px', mx: 'auto', position:'relative', top:'30vh', backgroundColor:'#FFDC00' }}>
+                <CardContent>
+                    <TextField
+                        id="email"
+                        label="Email"
+                        variant="outlined"
+                        sx={{width:'570px', marginBottom:'10px'}}
+                        onChange={(val) => setEmail(val.target.value) }
+                    />
+                    <TextField
+                        id="password"
+                        label="Password"
+                        type={'password'}
+                        variant="outlined"
+                        sx={{width:'570px', marginBottom:'10px'}}
+                        onChange={(val) => setPassword(val.target.value) }
+                    />
+                    <Button sx={{position:'relative', left:'15vw', width:'100px'}}
+                            variant="contained"
+                            onClick={LoginBtn}
+                    >
+                        Login
+                    </Button>
+                </CardContent>
+            </Card>
+        </Box>
     );
 }

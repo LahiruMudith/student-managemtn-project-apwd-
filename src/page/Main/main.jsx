@@ -22,6 +22,7 @@ import routes from "../../common/navigation/routes.jsx";
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import instance from "../../services/AxiosOrder.jsx";
+import './main.css'
 
 const drawerWidth = 210;
 
@@ -121,7 +122,7 @@ export default function Main() {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box className={'MainBox'} sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
@@ -138,46 +139,47 @@ export default function Main() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                        Student Management System
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
+            <Drawer variant="permanent" open={open}  >
+                <DrawerHeader sx={{backgroundColor:'#ecf0f1'}}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
-
                 <Divider />
-                {
-                    routes.map((val, index) => (
-                        <Link key={val.key} to={val.path} style={{textDecoration:"none"}}>
-                            <ListItem key={'dashboard'} disablePadding sx={{ display: 'block' }}>
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
-                                        px: 2.5,
-                                    }}
-                                >
-                                    <ListItemIcon
+                <Box sx={{backgroundColor:'#ecf0f1', height:'90vh'}}>
+                    {
+                        routes.map((val, index) => (
+                            <Link key={val.key} to={val.path} style={{textDecoration:"none", color:'black', fontWeight:'bold'}}>
+                                <ListItem key={'dashboard'} disablePadding sx={{ display: 'block' }}>
+                                    <ListItemButton
                                         sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
+                                            minHeight: 48,
+                                            justifyContent: open ? 'initial' : 'center',
+                                            px: 2.5,
                                         }}
                                     >
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={val.name} sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    ))
-                }
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            {val.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={val.name} sx={{ opacity: open ? 1 : 0 }} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
+                        ))
+                    }
+                </Box>
                 <IconButton aria-label="Example"
-                            sx={{position:'relative', top:'500px'}}
+                            sx={{position:'fixed', bottom:'5px', left:'15px'}}
                             onClick={() => LogoutClick()}
                 >
                     <LogoutIcon />
